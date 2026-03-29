@@ -11,7 +11,6 @@ const authMiddleWare = async (req, res, next) => {
     const decoded = jwt.verify(token, "SECRET_KEY");
 
     req.user = await User.findById(decoded.id).select("-password");
-    // req.user = decoded.id;
 
     next();
   } catch (error) {
