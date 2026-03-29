@@ -2,14 +2,23 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import { ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../context/ToastContext";
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const fetchCart = () => {
     API.get("/cart")
       .then((res) => setCart(res.data.products || []))
-      .catch(() => setCart([]));
+      .catch((err) => {
+        if (err.response?.status === 401) {
+          showToast("Please login to see your cart.", "error");
+          navigate("/login");
+        } else {
+          setCart([]);
+        }
+      });
   };
 
   useEffect(() => {
@@ -33,11 +42,12 @@ export default function Cart() {
 
   const createOrder = async () => {
     try {
-      await API.post("/orders");
-      alert("Order placed 🎉");
+      const res = await API.post("/orders");
+      showToast(res.data.message || "Order placed 🎉", "success");
       fetchCart();
-    } catch {
-      alert("Cart is empty 😭");
+    } catch (err) {
+      const message = err.response?.data?.message || "Failed to place order. Make sure your cart has items.";
+      showToast(message, "error");
     }
   };
 
