@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import { useToast } from "../context/ToastContext";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -17,22 +18,26 @@ export default function ProductDetails() {
       .catch((err) => console.log("ERROR:", err));
   }, [id]);
 
+  const { showToast } = useToast();
+
   const addToCart = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setMessage("Please login to add items to cart.");
+      showToast("Please login to add items to cart.", "error");
       return;
     }
 
     setLoading(true);
     setMessage("");
     try {
-      await API.post("/cart/add", {
+      const res = await API.post("/cart/add", {
         productId: id,
         quantity: 1,
       });
+      showToast("Added to cart successfully!", "success");
       setMessage("Added to cart successfully!");
     } catch (err) {
+      showToast("Failed to add to cart. Please try again.", "error");
       setMessage("Failed to add to cart. Please try again.");
     } finally {
       setLoading(false);
