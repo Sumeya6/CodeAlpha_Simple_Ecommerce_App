@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
+import { ToastProvider } from "./context/ToastContext";
 
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
@@ -12,17 +15,34 @@ import Orders from "./pages/Orders";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <AuthProvider>
+        <ToastProvider>
+          <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/products" element={<Home />} /> */}
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/orders" element={<Orders />} />
-      </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </ToastProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
