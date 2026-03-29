@@ -30,7 +30,7 @@ export default function Navbar() {
             <Link to="/orders">Orders</Link>
             <button
               onClick={logout}
-              className="text-red-500 font-medium"
+              className="text-primary font-medium"
             >
               Logout
             </button>
