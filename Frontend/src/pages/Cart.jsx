@@ -45,7 +45,7 @@ export default function Cart() {
     <div className="p-6 max-w-3xl mx-auto">
       {cart.length === 0 && <div className="flex flex-col items-center justify-center py-20 text-center">
     <ShoppingCart className="w-16 h-16 text-primary mb-4" />
-    <h2 className="text-2xl font-semibold text-">Your Cart is Empty</h2>
+    <h2 className="text-2xl font-semibold text-primary">Your Cart is Empty</h2>
     <p className="text-gray-500 mt-2">
       You haven’t added any items yet. Start shopping to fill your cart!
     </p>
