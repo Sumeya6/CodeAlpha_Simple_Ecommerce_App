@@ -6,30 +6,30 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-      <h1 className="text-2xl font-bold text-primary">Shop</h1>
+      <h1 className="text-2xl font-bold text-primary"><Link to="/">Shop</Link></h1>
 
       <div className="flex gap-4 text-sm">
-        <Link to="/">Home</Link>
+        {/* <Link to="/">Home</Link> */}
 
         {isAuthenticated ? (
           <>
-            <Link to="/cart" className="text-primary font-medium">
+            <Link to="/cart" className=" font-medium">
               Cart
             </Link>
-            <Link to="/orders" className="text-primary font-medium">
+            <Link to="/orders" className=" font-medium">
               Orders
             </Link>
-            <button onClick={logout} className="text-primary font-medium">
+            <button onClick={logout} className="font-medium">
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="text-primary font-medium">
+            <Link to="/login" className=" font-medium">
               Login
             </Link>
             <span>|</span>
-            <Link to="/register" className="text-primary font-medium">
+            <Link to="/register" className=" font-medium">
               Register
             </Link>
           </>

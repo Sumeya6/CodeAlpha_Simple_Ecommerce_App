@@ -63,10 +63,10 @@ export default function ProductDetails() {
             {/* Product Details */}
             <div className="md:w-1/2 p-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
-              <p className="text-gray-600 text-lg mb-6">{product.description}</p>
+              <p className="text-gray-600 text-md mb-6">{product.description}</p>
 
               <div className="mb-6">
-                <span className="text-3xl font-bold text-primary">
+                <span className="text-xl font-bold text-primary">
                   ${product.price}
                 </span>
               </div>
