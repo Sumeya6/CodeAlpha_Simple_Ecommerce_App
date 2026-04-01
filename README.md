@@ -128,7 +128,6 @@ Simple-Ecommerce-app/
 4. Start the server:
    ```
    npm run server
-   # or if your `package.json` sets server script to `server.js` but your file is index.js, run:
    node index.js
    ```
 
